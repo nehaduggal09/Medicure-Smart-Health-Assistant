@@ -182,3 +182,11 @@ footer {
   .section h2 { font-size:1.8rem; }
   .checker-card, .auth-card { padding:1.5rem; }
 }
+
+/* Result sections */
+.result-section { margin-top:1rem; padding-top:.8rem; border-top:1px dashed rgba(58,123,213,.2); }
+.result-section h4 { color:var(--blue); margin-bottom:.4rem; font-size:1rem; }
+.result-section ul { margin-left:1.2rem; }
+.result-msg { font-weight:500; }
+.result-card.emergency { background:linear-gradient(135deg,#ffe5e5,#fff0f0); border-left:6px solid #e63946; }
+.result-card.emergency h3, .result-card.emergency h4 { color:#c1121f; }
