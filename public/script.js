@@ -92,16 +92,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderResults(items) {
-      results.innerHTML = items.map(it => `
-        <div class="result-card ${it.emergency ? 'emergency' : ''} fade-in">
-          <h3>${it.icon || '🩺'} ${it.title}</h3>
+      results.innerHTML = items.map(it => {
+        const sev = (it.severity || '').toUpperCase();
+        const sevBadge = sev ? `<span class="sev-badge sev-${sev.toLowerCase()}">${sev}</span>` : '';
+        return `
+        <div class="result-card glass ${it.emergency ? 'emergency' : ''} fade-in">
+          <div class="result-head">
+            <h3>${it.icon || '🩺'} ${it.title}</h3>
+            ${sevBadge}
+          </div>
           ${it.message ? `<p class="result-msg">${it.message}</p>` : ''}
+          ${it.causes ? `<div class="result-section"><h4>🔎 Likely Causes</h4><ul>${it.causes.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
           ${it.suggestions ? `<div class="result-section"><h4>💡 Possible Health Suggestions</h4><ul>${it.suggestions.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
-          ${it.precautions ? `<div class="result-section"><h4>🛡 Precautions</h4><ul>${it.precautions.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
+          ${it.precautions ? `<div class="result-section"><h4>🛡 General Precautions</h4><ul>${it.precautions.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
           ${it.care ? `<div class="result-section"><h4>🏠 Home Care Recommendations</h4><ul>${it.care.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
           ${it.doctor ? `<div class="result-section"><h4>👨‍⚕️ When to Consult a Doctor</h4><ul>${it.doctor.map(s => `<li>${s}</li>`).join('')}</ul></div>` : ''}
-        </div>
-      `).join('');
+        </div>`;
+      }).join('') + `<p class="disclaimer-note">⚠ This website provides general health information only and is not a substitute for professional medical advice.</p>`;
     }
   }
 });
